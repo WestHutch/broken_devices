@@ -51,5 +51,3 @@ def get_credentials():
         f.write(boss_email)
         f.close()
         get_credentials()
-
-get_credentials()
