@@ -7,10 +7,10 @@ To run this program...
   2. Ensure your label printer is set as your default printer
   3. Download this repo and save it to your desktop
   4. In the command prompt, naviate to where you have this repo saved
-       cd Desktop\broken_devices
+       `cd Desktop\broken_devices`
   5. Run the following commands sequentially. This will ensure you have all necessary packages installed
-       python -m venv venv
-       venv\Scripts\activate.bat
-       pip install -r requirements.txt
+       `python -m venv venv`
+       `venv\Scripts\activate.bat`
+       `pip install -r requirements.txt`
   6. Run the main script
-       python broken_device_script.py
+       `python broken_device_script.py`
