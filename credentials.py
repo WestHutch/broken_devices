@@ -44,10 +44,12 @@ def get_credentials():
         f.write(synetic_pw + "\n")
 
         mail_to = input("Enter the email address of someone you need to email: ")
+        emails = []
         while mail_to != "s":
             f.write(mail_to + "\n")
+            emails.append(mail_to)
             mail_to = input("Enter another email or type s to stop: ")
         boss_email = input("Enter your boss' email address: ")
         f.write(boss_email)
         f.close()
-        get_credentials()
+        return(ic_user, ic_pw, initials, destiny_user, destiny_pw, email, email_pw, email_sig, synetic_user, synetic_pw, emails, boss_email)
