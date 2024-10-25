@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 from datetime import date
 from credentials import get_credentials
 
-#pip list
+#possible future additions
 #regex validate asset, serial, stu number
 #make it have a better framework
 #fancy gui for it (select checkboxes with each thing, run again option)
