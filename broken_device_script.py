@@ -91,21 +91,32 @@ def complete_outlook():
     page2.get_by_placeholder("Password").click()
     page2.get_by_placeholder("Password").fill(user_credentials[6])
     page2.get_by_role("button", name="Sign in").click()
-    page2.get_by_role("button", name="Yes").click()
+    try:
+        page2.get_by_role("button", name="Yes").click(timeout=5000)
+    except:
+        pass
     #page2.locator("button").filter(has_text="New mailCreate a new email").click()
     page2.locator("button").filter(has_text="New mail").click()
     #add addresses to the to field
     for x in emailList:
         page2.get_by_label("To", exact=True).press_sequentially(x)
-        page2.get_by_label(x).click()
+        page2.wait_for_timeout(3100) #i have to wait here, otherwise the email wont fill properly
+        page2.keyboard.press("Tab")
+        #page2.get_by_label(x).click()  instead of this, im clicking tab to ensure it gets right thing
+        #could have done page2.get_by_label("Last,First - lastf@") but then the user would have to enter the emails in a specific format that gets messy
     #add boss to the cc field
     page2.get_by_label("Cc", exact=True).press_sequentially(user_credentials[len(user_credentials)-1])
-    page2.get_by_label(user_credentials[len(user_credentials)-1]).click()
+    page2.wait_for_timeout(3100)
+    page2.keyboard.press("Tab")
+    #page2.get_by_label(user_credentials[len(user_credentials)-1]).click()
     #fill in body
     page2.get_by_placeholder("Add a subject").fill(f"Damaged Device, {s1.initials}, {todaysDate}")
     page2.get_by_label("Message body, press Alt+F10").fill(f"{s1.name} - {reason}\n\n{user_credentials[7]}\n\n")
-    page2.get_by_text("Draft saved").click()
-    #page2.get_by_label("Favorites").get_by_text("Drafts").click()
+    try:
+        page2.get_by_text("Draft saved").click(timeout=3000)
+    except:
+        page2.get_by_label("Favorites").get_by_text("Drafts").click()
+        page2.get_by_text("Damaged Device").click()
 
 
 def complete_synetic():

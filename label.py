@@ -19,9 +19,9 @@ def save_label(path, student):
     root.configure(bg="white")
     root.geometry("350x110")
 
-    if len(student.name) < 28:
+    if len(student.name) < 27:
         fontSize = 18
-    elif len(student.name) < 39:
+    elif len(student.name) < 38:
         fontSize = 12
     else:
         fontSize = 8
