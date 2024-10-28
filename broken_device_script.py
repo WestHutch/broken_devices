@@ -116,7 +116,6 @@ def complete_outlook():
         page2.get_by_text("Draft saved").click(timeout=3000)
     except:
         page2.get_by_label("Favorites").get_by_text("Drafts").click()
-        page2.get_by_text("Damaged Device").click()
 
 
 def complete_synetic():
