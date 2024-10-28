@@ -112,10 +112,9 @@ def complete_outlook():
     #fill in body
     page2.get_by_placeholder("Add a subject").fill(f"Damaged Device, {s1.initials}, {todaysDate}")
     page2.get_by_label("Message body, press Alt+F10").fill(f"{s1.name} - {reason}\n\n{user_credentials[7]}\n\n")
-    try:
-        page2.get_by_text("Draft saved").click(timeout=3000)
-    except:
-        page2.get_by_label("Favorites").get_by_text("Drafts").click()
+    page2.wait_for_timeout(1000) #honestly not super important to check for the draft saving here, as the tab will stay open through the next step
+    #page2.get_by_text("Draft saved").click(timeout=3000)
+    #page2.get_by_label("Favorites").get_by_text("Drafts").click()
 
 
 def complete_synetic():
