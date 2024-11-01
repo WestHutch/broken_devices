@@ -22,8 +22,6 @@ class student:
 def complete_ic():
     def open_student_page(attempts):
         try:
-            #page.click("#searchSidebar > ic-tool-context-search > div > div.flex-1.flex.flex-col.overflow-y-auto.ng-tns-c796485028-1.ng-star-inserted > section > ic-list-view > ul > li > ic-tool-context-search-result > button", timeout=20000)
-            #page.click("#searchSidebar > ic-tool-context-search > div > div.flex-1.flex.flex-col.overflow-y-auto.ng-tns-c2871442543-1.ng-star-inserted > section > ic-list-view > ul > li > ic-tool-context-search-result > button", timeout=2000)
             page.get_by_text("#" + studentNum).click(timeout=2000)
         except:
             attempts += 1
@@ -43,8 +41,8 @@ def complete_ic():
     page.get_by_placeholder("Student Search...").press("Enter")
     #for some reason search minimizes here, needs to be open in order to see next button to click
     open_student_page(0)
+
     page.get_by_role("link", name="Student Technology").click()
-    
     oldComment = page.frame_locator("iframe[title=\"workspace\"]").frame_locator("iframe[name=\"frameWorkspace\"]").frame_locator("iframe[name=\"frameWorkspaceWrapper\"]").frame_locator("iframe[name=\"frameWorkspaceDetail\"]").get_by_role("textbox", name="Return Comments").text_content()
     page.frame_locator("iframe[title=\"workspace\"]").frame_locator("iframe[name=\"frameWorkspace\"]").frame_locator("iframe[name=\"frameWorkspaceWrapper\"]").frame_locator("iframe[name=\"frameWorkspaceDetail\"]").get_by_role("textbox", name="Return Comments").fill(f"{oldComment}\n{assetTag}, {serialNumber}, {reason}, {todaysDate} - {user_credentials[2]}")
     page.frame_locator("iframe[title=\"workspace\"]").frame_locator("iframe[name=\"frameWorkspace\"]").frame_locator("iframe[name=\"frameWorkspaceWrapper\"]").frame_locator("iframe[name=\"frameWorkspaceHeader\"]").get_by_role("link", name="Save").click()
@@ -95,26 +93,19 @@ def complete_outlook():
         page2.get_by_role("button", name="Yes").click(timeout=5000)
     except:
         pass
-    #page2.locator("button").filter(has_text="New mailCreate a new email").click()
     page2.locator("button").filter(has_text="New mail").click()
     #add addresses to the to field
     for x in emailList:
         page2.get_by_label("To", exact=True).press_sequentially(x)
-        page2.wait_for_timeout(3100) #i have to wait here, otherwise the email wont fill properly
-        page2.keyboard.press("Tab")
-        #page2.get_by_label(x).click()  instead of this, im clicking tab to ensure it gets right thing
+        page2.locator("#FloatingSuggestionsItemId0").filter(has_text=x).click()
         #could have done page2.get_by_label("Last,First - lastf@") but then the user would have to enter the emails in a specific format that gets messy
     #add boss to the cc field
     page2.get_by_label("Cc", exact=True).press_sequentially(user_credentials[len(user_credentials)-1])
-    page2.wait_for_timeout(3100)
-    page2.keyboard.press("Tab")
-    #page2.get_by_label(user_credentials[len(user_credentials)-1]).click()
+    page2.locator("#FloatingSuggestionsItemId0").filter(has_text=user_credentials[len(user_credentials)-1]).click()
     #fill in body
     page2.get_by_placeholder("Add a subject").fill(f"Damaged Device, {s1.initials}, {todaysDate}")
     page2.get_by_label("Message body, press Alt+F10").fill(f"{s1.name} - {reason}\n\n{user_credentials[7]}\n\n")
-    page2.wait_for_timeout(1000) #honestly not super important to check for the draft saving here, as the tab will stay open through the next step
-    #page2.get_by_text("Draft saved").click(timeout=3000)
-    #page2.get_by_label("Favorites").get_by_text("Drafts").click()
+    page2.wait_for_timeout(1000) #not important to check for the draft saving here, as the tab will stay open through the next step
 
 
 def complete_synetic():
@@ -167,8 +158,8 @@ with sync_playwright() as p:
     context = browser.new_context()
     s1 = complete_ic()
     #s1 = student(studentNum, "Man, Spider", "SM", "09", "Sp12345T28")
-    complete_destiny()
     complete_outlook()
+    complete_destiny()
     if deviceType == "":
         complete_synetic()
     save_label(path, s1)
