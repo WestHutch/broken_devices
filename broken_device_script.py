@@ -25,7 +25,7 @@ def complete_ic():
             page.get_by_text("#" + studentNum).click(timeout=2000)
         except:
             attempts += 1
-            page.query_selector('//*[@id="undefined"]').click()
+            page.get_by_label("Search").click()
             if attempts < 5:
                 open_student_page(attempts)
 
