@@ -105,8 +105,9 @@ def complete_outlook():
     #fill in body
     page2.get_by_placeholder("Add a subject").fill(f"Damaged Device, {s1.initials}, {todaysDate}")
     page2.get_by_label("Message body, press Alt+F10").fill(f"{s1.name} - {reason}\n\n{user_credentials[7]}\n\n")
-    page2.wait_for_timeout(5000) #not important to check for the draft saving here, as the tab will stay open through the next step
-    #this is just to make sure it gets enough time to save, unfortunately, theres no save button or better way to check if it saved, so this is the best I can do
+    page2.keyboard.press("Control+s") #there is no save button, but this saves the draft
+    page2.wait_for_timeout(3000) #this is just to make sure it gets enough time to save, unfortunately, theres no better way to check if it saved, so this is the best I can do
+    
 
 def complete_synetic():
     page3 = context.new_page()
