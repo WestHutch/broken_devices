@@ -50,9 +50,9 @@ def complete_ic():
     page.frame_locator("iframe[title=\"workspace\"]").frame_locator("iframe[name=\"frameWorkspace\"]").frame_locator("iframe[name=\"frameWorkspaceWrapper\"]").frame_locator("iframe[name=\"frameWorkspaceDetail\"]").get_by_role("textbox", name="Student Password").click()
     #get user info
     passw = page.frame_locator("iframe[title=\"workspace\"]").frame_locator("iframe[name=\"frameWorkspace\"]").frame_locator("iframe[name=\"frameWorkspaceWrapper\"]").frame_locator("iframe[name=\"frameWorkspaceDetail\"]").get_by_role("textbox", name="Student Password").input_value()
-    fullName = page.query_selector("#main-content > ic-title-bar-container > ic-title-bar > div > div.flex.flex-col.w-full.ng-tns-c3707218343-4 > div:nth-child(2) > ic-title-bar-selected-context-item > span").inner_text()
+    fullName = page.query_selector('#main-content > ic-title-bar-container > ic-title-bar > div > div.flex.flex-col.w-full.ng-tns-c2218988567-4 > div:nth-child(2) > ic-title-bar-selected-context-item > span').inner_text()
     #studentNum = page.query_selector("#main-content > ic-title-bar-container > ic-title-bar > div > div.flex.flex-col.w-full.ng-tns-c3707218343-4 > div:nth-child(2) > ic-title-bar-selected-context-item > ul > li:nth-child(1)").inner_text()
-    grade = page.query_selector("#main-content > ic-title-bar-container > ic-title-bar > div > div.flex.flex-col.w-full.ng-tns-c3707218343-4 > div:nth-child(2) > ic-title-bar-selected-context-item > ul > li:nth-child(2)").inner_text()
+    grade = page.query_selector("#main-content > ic-title-bar-container > ic-title-bar > div > div.flex.flex-col.w-full.ng-tns-c2218988567-4 > div:nth-child(2) > ic-title-bar-selected-context-item > ul > li:nth-child(2)").inner_text()
     grade = grade[7:]
     #trim off nicknames
     fullName = fullName.rstrip()
