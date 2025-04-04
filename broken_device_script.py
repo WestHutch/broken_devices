@@ -115,7 +115,7 @@ def complete_synetic():
     page3.fill('#username', user_credentials[8])
     page3.fill('#password', user_credentials[9])
     page3.click('#ww > div > div > div > div > div:nth-child(3) > div > form > button')
-    page3.get_by_text("Create new service order").click()
+    page3.locator("#navbarLargeMenu").get_by_role("link", name="Create new service order").click()
     page3.get_by_label("Reference", exact=True).fill(assetTag)
 
     #page3.select_option('select#name','Macbook air') cant do this because then loading symbol never happens
