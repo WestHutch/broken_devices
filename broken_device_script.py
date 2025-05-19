@@ -25,7 +25,7 @@ def complete_ic():
             page.get_by_text("#" + studentNum).click(timeout=2000)
         except:
             attempts += 1
-            page.get_by_label("Search").click()
+            page.get_by_label("Search").first.click()
             if attempts < 5:
                 open_student_page(attempts)
 
@@ -36,7 +36,7 @@ def complete_ic():
     page.fill('#password', user_credentials[1])
     page.click('#signinbtn')
 
-    page.get_by_label("Search").click()
+    page.get_by_label("Search").first.click()
     page.get_by_placeholder("Student Search...").fill(studentNum)
     page.get_by_placeholder("Student Search...").press("Enter")
     #for some reason search minimizes here, needs to be open in order to see next button to click
