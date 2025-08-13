@@ -16,6 +16,7 @@ To run this program...
        `venv\Scripts\activate.bat`
      
        `pip install -r requirements.txt`
+
      If this pip is not being recognized as a command, you may need to add a couple paths to your system's PATH environment variable
        * Search for "environment variables" in the Windows search bar and open the first result
        * Click Environment Variables, and select the Path variable under User Variables
@@ -24,12 +25,14 @@ To run this program...
        * You can then restart command prompt and type the following to ensure pip is working
 
          `pip --version`
+
      If your system is blocking the execution of the venv exe, you'll need to do the following:
        * Open Windows Security, and go to Virus & threat protection
        * Click "Manage settings" under Virus & threat protection settings
        * Under Exclusions, click "Add or remove exclusions"
        * Add the path to your Python folder (ex: C:\Users\yourname\AppData\Local\Programs\Python)
        * Add the path to the project folder (ex: C:\Users\yourname\Desktop\broken_devices)
+       
      If it's your first time using playwright, you'll also need to run the following:
 
        `playwright install`
