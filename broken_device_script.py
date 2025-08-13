@@ -22,6 +22,8 @@ class student:
 def complete_ic():
     def open_student_page(attempts):
         try:
+            page.get_by_placeholder("Student Search...").fill(studentNum, timeout=2000)
+            page.get_by_placeholder("Student Search...").press("Enter", timeout=2000)
             page.get_by_text("#" + studentNum).click(timeout=2000)
         except:
             attempts += 1
@@ -69,16 +71,24 @@ def complete_ic():
 def complete_destiny():
     page1 = context.new_page()
     page1.goto('https://turnerusd202.follettdestiny.com')
-    page1.click('#Login')
-    page1.fill('#ID_loginName', user_credentials[3])
-    page1.fill('#ID_password', user_credentials[4])
-    page1.get_by_role("button", name="Log In").click()
-    page1.get_by_role("link", name="Circulation").click()
-    page1.get_by_role("link", name="Check In Items").click()
-    page1.get_by_role("textbox").click()
-    page1.get_by_role("textbox").fill(serialNumber)
-    page1.get_by_role("button", name="Go!").click()
-    page1.wait_for_selector('#blockTransactionList')
+    if user_credentials[len(user_credentials)-1] == "m":
+        page1.get_by_text("Turner Middle School").click()
+    else:
+        page1.get_by_text("Turner High School").click()
+    page1.click('#toolbar-guest-login-btn')
+    page1.fill('#userName', user_credentials[3])
+    page1.fill('#userPassword', user_credentials[4])
+    page1.get_by_role("button", name="Log in", exact=True).click()
+    page1.locator('#portal-spinner circle').nth(1).wait_for(state='visible')
+    page1.locator('#portal-spinner circle').nth(1).wait_for(state='hidden')
+    page1.click("#app-switch-button")
+    page1.get_by_text("Back Office").click()
+    page1.get_by_role("button", name="Circulation Circulation").click()
+    page1.get_by_role("button", name="Check In Items", exact=True).click()
+    page1.locator('[id="Library Manager"]').content_frame.locator("input[name='barcode']").click()
+    page1.locator('[id="Library Manager"]').content_frame.locator("input[name='barcode']").fill(serialNumber)
+    page1.locator('[id="Library Manager"]').content_frame.get_by_role("button", name="Go!").click()
+    page1.locator('[id="Library Manager"]').content_frame.locator('#blockTransactionList').hover()
 
 def complete_outlook():
     page2 = context.new_page()
@@ -93,18 +103,18 @@ def complete_outlook():
         page2.get_by_role("button", name="Yes").click(timeout=5000)
     except:
         pass
-    page2.locator("button").filter(has_text="New mail").click()
+    page2.get_by_role("button", name="New mail").first.click()
     #add addresses to the to field
     for x in emailList:
         page2.get_by_label("To", exact=True).press_sequentially(x)
         page2.locator("#FloatingSuggestionsItemId0").filter(has_text=x).click()
         #could have done page2.get_by_label("Last,First - lastf@") but then the user would have to enter the emails in a specific format that gets messy
     #add boss to the cc field
-    page2.get_by_label("Cc", exact=True).press_sequentially(user_credentials[len(user_credentials)-1])
-    page2.locator("#FloatingSuggestionsItemId0").filter(has_text=user_credentials[len(user_credentials)-1]).click()
+    page2.get_by_label("Cc", exact=True).press_sequentially(user_credentials[len(user_credentials)-2])
+    page2.locator("#FloatingSuggestionsItemId0").filter(has_text=user_credentials[len(user_credentials)-2]).click()
     #fill in body
     page2.get_by_placeholder("Add a subject").fill(f"Damaged Device, {s1.initials}, {todaysDate}")
-    page2.get_by_label("Message body, press Alt+F10").fill(f"{s1.name} - {reason}\n\n{user_credentials[7]}\n\n")
+    page2.fill("#editorParent_1 > div > div", f"{s1.name} - {reason}\n\n{user_credentials[7]}\n\n")
     page2.keyboard.press("Control+s") #there is no save button, but this saves the draft
     page2.wait_for_timeout(3000) #this is just to make sure it gets enough time to save, unfortunately, theres no better way to check if it saved, so this is the best I can do
     

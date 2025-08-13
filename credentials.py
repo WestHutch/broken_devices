@@ -12,13 +12,14 @@ def get_credentials():
         email_sig = content[7].rstrip()
         synetic_user = content[8].rstrip()
         synetic_pw = content[9].rstrip()
-        num_of_emails = len(content) - 11
+        num_of_emails = len(content) - 12
         emails = []
         for i in range(num_of_emails):
             emails.append(content[i+10].rstrip())
-        boss_email = content[len(content)-1]
+        boss_email = content[len(content)-2]
+        school = content[len(content)-1]
         f.close()
-        return(ic_user, ic_pw, initials, destiny_user, destiny_pw, email, email_pw, email_sig, synetic_user, synetic_pw, emails, boss_email)
+        return(ic_user, ic_pw, initials, destiny_user, destiny_pw, email, email_pw, email_sig, synetic_user, synetic_pw, emails, boss_email, school)
         
     except:
         f = open("userinfo.txt", "wt")
@@ -50,6 +51,10 @@ def get_credentials():
             emails.append(mail_to)
             mail_to = input("Enter another email or type s to stop: ")
         boss_email = input("Enter your boss' email address: ")
-        f.write(boss_email)
+        f.write(boss_email + "\n")
+        school = ""
+        while school != "t" and school != "m":
+            school = input("Enter m for TMS or h for THS: ")
+        f.write(school)
         f.close()
-        return(ic_user, ic_pw, initials, destiny_user, destiny_pw, email, email_pw, email_sig, synetic_user, synetic_pw, emails, boss_email)
+        return(ic_user, ic_pw, initials, destiny_user, destiny_pw, email, email_pw, email_sig, synetic_user, synetic_pw, emails, boss_email, school)
