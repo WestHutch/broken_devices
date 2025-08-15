@@ -11,7 +11,7 @@ To run this program...
        `cd Desktop\broken_devices-main\broken_devices-main`
   6. Run the following commands sequentially. This will ensure you have all necessary packages installed
 
-       `python -m venv venv`
+       `py -m venv venv`
      
        `venv\Scripts\activate.bat`
      
@@ -38,4 +38,4 @@ To run this program...
        `playwright install`
   7. Run the main script
 
-       `python broken_device_script.py`
+       `py broken_device_script.py`

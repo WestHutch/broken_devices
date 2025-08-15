@@ -53,7 +53,7 @@ def get_credentials():
         boss_email = input("Enter your boss' email address: ")
         f.write(boss_email + "\n")
         school = ""
-        while school != "t" and school != "m":
+        while school != "h" and school != "m":
             school = input("Enter m for TMS or h for THS: ")
         f.write(school)
         f.close()
