@@ -71,7 +71,7 @@ def complete_ic():
 def complete_destiny():
     page1 = context.new_page()
     page1.goto('https://turnerusd202.follettdestiny.com')
-    if user_credentials[len(user_credentials)-1] == "m":
+    if user_credentials[-1] == "m":
         page1.get_by_text("Turner Middle School").click()
     else:
         page1.get_by_text("Turner High School").click()
@@ -110,8 +110,8 @@ def complete_outlook():
         page2.locator("#FloatingSuggestionsItemId0").filter(has_text=x).click()
         #could have done page2.get_by_label("Last,First - lastf@") but then the user would have to enter the emails in a specific format that gets messy
     #add boss to the cc field
-    page2.get_by_label("Cc", exact=True).press_sequentially(user_credentials[len(user_credentials)-2])
-    page2.locator("#FloatingSuggestionsItemId0").filter(has_text=user_credentials[len(user_credentials)-2]).click()
+    page2.get_by_label("Cc", exact=True).press_sequentially(user_credentials[-2])
+    page2.locator("#FloatingSuggestionsItemId0").filter(has_text=user_credentials[-2]).click()
     #fill in body
     page2.get_by_placeholder("Add a subject").fill(f"Damaged Device, {s1.initials}, {todaysDate}")
     page2.fill("#editorParent_1 > div > div", f"{s1.name} - {reason}\n\n{user_credentials[7]}\n\n")
@@ -148,9 +148,37 @@ def complete_synetic():
     #click something here to ensure you waited for it to load
     page3.get_by_text("You have chosen to ship the device").click()
 
+def complete_worthave():
+    page3 = context.new_page()
+    page3.goto('https://www.worthavegroup.com/customer/account/login/')
+    page3.get_by_role("textbox", name="Email").fill(user_credentials[10])
+    page3.get_by_role("textbox", name="Password").fill(user_credentials[11])
+    page3.get_by_role('button', name='Log In').click()
+    page3.get_by_text('Claim Center').click()
+    page3.get_by_role("textbox").fill(serialNumber)
+    page3.locator("#yt_main").get_by_role("button", name="Search").click()
+    page3.locator("#yt_main > div > div > div > div.loading-screen.fixed").wait_for(state='visible')
+    page3.locator("#yt_main > div > div > div > div.loading-screen.fixed").wait_for(state='hidden')
+    page3.get_by_text('File a claim', exact=True).click()
+    page3.get_by_role('textbox').first.click()
+    page3.get_by_text(str(date.today().strftime("%d")), exact=True).click()
+    if reason == "Broken screen":
+        page3.get_by_role("combobox").nth(1).select_option("140")
+    elif 'battery' in reason.lower() or 'charge' in reason.lower():
+        page3.get_by_role("combobox").nth(1).select_option("558")
+    elif 'water' in reason.lower() or 'liquid' in reason.lower():
+        page3.get_by_role("combobox").nth(1).select_option("158")
+    else:
+        page3.get_by_role("combobox").nth(1).select_option("137")
+    page3.get_by_role("textbox").nth(1).fill(reason)
+    page3.get_by_role("textbox").nth(2).fill(reason)
+    page3.get_by_role("checkbox").check()
+    page3.get_by_role("button", name="Submit").click()
+    page3.get_by_text("Success Your claim for serial").click()
+
 
 user_credentials = get_credentials()
-emailList = user_credentials[10]
+emailList = user_credentials[12]
 assetTag = input("Asset tag: ")
 serialNumber = input("Serial num: ")
 studentNum = input("Student num: ")
@@ -172,6 +200,9 @@ with sync_playwright() as p:
     complete_outlook()
     complete_destiny()
     if deviceType == "":
-        complete_synetic()
+        if serialNumber[:4].upper() == "FVFH" or serialNumber[:4].upper() == "FVFF":
+            complete_worthave()
+        else:
+            complete_synetic()
     save_label(path, s1)
     print_label(path)

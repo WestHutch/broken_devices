@@ -19,15 +19,17 @@ def save_label(path, student):
     root.configure(bg="white")
     root.geometry("350x110")
 
-    if len(student.name) < 27:
+    if len(student.name) < 25:
         fontSize = 18
     elif len(student.name) < 38:
         fontSize = 12
     else:
         fontSize = 8
 
-    label = tkinter.Label(root, text=f"{student.name}\n{student.grade}\n{student.number}   {student.password}", font=('Consolas', fontSize), bg="white")
-    label.pack()
+    name_label = tkinter.Label(root, text=f"{student.name}", font=('Consolas', fontSize), bg="white")
+    name_label.pack()
+    info_label = tkinter.Label(root, text=f"{student.grade}\n{student.number}   {student.password}", font=('Consolas', 18), bg="white")
+    info_label.pack()
 
     root.attributes('-topmost', 1) #force window to jump to front
     root.after(1000, save_image)

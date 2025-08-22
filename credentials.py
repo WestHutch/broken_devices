@@ -12,14 +12,16 @@ def get_credentials():
         email_sig = content[7].rstrip()
         synetic_user = content[8].rstrip()
         synetic_pw = content[9].rstrip()
-        num_of_emails = len(content) - 12
+        worthave_user = content[10].rstrip()
+        worthave_pw = content[11].rstrip()
+        num_of_emails = len(content) - 14
         emails = []
         for i in range(num_of_emails):
-            emails.append(content[i+10].rstrip())
-        boss_email = content[len(content)-2]
-        school = content[len(content)-1]
+            emails.append(content[i-5].rstrip())
+        boss_email = content[-2]
+        school = content[-1]
         f.close()
-        return(ic_user, ic_pw, initials, destiny_user, destiny_pw, email, email_pw, email_sig, synetic_user, synetic_pw, emails, boss_email, school)
+        return(ic_user, ic_pw, initials, destiny_user, destiny_pw, email, email_pw, email_sig, synetic_user, synetic_pw, worthave_user, worthave_pw, emails, boss_email, school)
         
     except:
         f = open("userinfo.txt", "wt")
@@ -43,6 +45,10 @@ def get_credentials():
         f.write(synetic_user + "\n")
         synetic_pw = input("Enter your synetic password: ")
         f.write(synetic_pw + "\n")
+        worthave_user = input("Enter your Worth Ave username: ")
+        f.write(worthave_user + "\n")
+        worthave_pw = input("Enter your Worth Ave password: ")
+        f.write(worthave_pw + "\n")
 
         mail_to = input("Enter the email address of someone you need to email: ")
         emails = []
@@ -57,4 +63,4 @@ def get_credentials():
             school = input("Enter m for TMS or h for THS: ")
         f.write(school)
         f.close()
-        return(ic_user, ic_pw, initials, destiny_user, destiny_pw, email, email_pw, email_sig, synetic_user, synetic_pw, emails, boss_email, school)
+        return(ic_user, ic_pw, initials, destiny_user, destiny_pw, email, email_pw, email_sig, synetic_user, synetic_pw, worthave_user, worthave_pw, emails, boss_email, school)
