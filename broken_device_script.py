@@ -170,7 +170,7 @@ def complete_worthave():
         page3.get_by_role("combobox").nth(1).select_option("158")
     else:
         page3.get_by_role("combobox").nth(1).select_option("137")
-    page3.get_by_role("textbox").nth(1).fill(reason)
+    page3.get_by_role("textbox").nth(1).fill(incidentDesc)
     page3.get_by_role("textbox").nth(2).fill(reason)
     page3.get_by_role("checkbox").check()
     page3.get_by_role("button", name="Submit").click()
@@ -190,6 +190,9 @@ while deviceType != "" and deviceType != "i":
     deviceType = input("Enter i for intel device, or press enter for newer: ")
 todaysDate = date.today().strftime("%m/%d/%y")
 path = "student_label.jpg"
+incidentDesc = reason
+if serialNumber[:4].upper() == "FVFH" or serialNumber[:4].upper() == "FVFF":
+    incidentDesc = input("Please describe how the device was damaged: ")
 
 #using context manager to make browser close automatically
 with sync_playwright() as p:
