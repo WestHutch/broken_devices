@@ -161,7 +161,7 @@ def complete_worthave():
     page3.locator("#yt_main > div > div > div > div.loading-screen.fixed").wait_for(state='hidden')
     page3.get_by_text('File a claim', exact=True).click()
     page3.get_by_role('textbox').first.click()
-    page3.get_by_text(str(date.today().strftime("%d")), exact=True).click()
+    page3.get_by_text((str(date.today().strftime("%d"))).lstrip('0'), exact=True).click()
     if reason == "Broken screen":
         page3.get_by_role("combobox").nth(1).select_option("140")
     elif 'battery' in reason.lower() or 'charge' in reason.lower():
