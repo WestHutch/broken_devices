@@ -70,20 +70,20 @@ def complete_ic():
 
 def complete_destiny():
     page1 = context.new_page()
-    page1.goto('https://turnerusd202.follettdestiny.com')
+    page1.goto('https://turnerusd202.follettdestiny.com', timeout=180000)
     if user_credentials[-1] == "m":
-        page1.get_by_text("Turner Middle School").click()
+        page1.get_by_text("Turner Middle School").click(timeout=180000)
     else:
-        page1.get_by_text("Turner High School").click()
-    page1.click('#toolbar-guest-login-btn')
+        page1.get_by_text("Turner High School").click(timeout=180000)
+    page1.click('#toolbar-guest-login-btn', timeout=180000)
     page1.fill('#userName', user_credentials[3])
     page1.fill('#userPassword', user_credentials[4])
     page1.get_by_role("button", name="Log in", exact=True).click()
-    page1.locator('#portal-spinner circle').nth(1).wait_for(state='visible')
+    page1.locator('#portal-spinner circle').nth(1).wait_for(state='visible', timeout=180000)
     page1.locator('#portal-spinner circle').nth(1).wait_for(state='hidden')
     page1.click("#app-switch-button")
     page1.get_by_text("Back Office").click()
-    page1.get_by_role("button", name="Circulation Circulation").click()
+    page1.get_by_role("button", name="Circulation Circulation").click(timeout=180000)
     page1.get_by_role("button", name="Check In Items", exact=True).click()
     page1.locator('[id="Library Manager"]').content_frame.locator("input[name='barcode']").click()
     page1.locator('[id="Library Manager"]').content_frame.locator("input[name='barcode']").fill(serialNumber)
@@ -150,7 +150,7 @@ def complete_synetic():
 
 def complete_worthave():
     page3 = context.new_page()
-    page3.goto('https://www.worthavegroup.com/customer/account/login/')
+    page3.goto('https://www.worthavegroup.com/customer/account/login/', timeout=180000)
     page3.get_by_role("textbox", name="Email").fill(user_credentials[10])
     page3.get_by_role("textbox", name="Password").fill(user_credentials[11])
     page3.get_by_role('button', name='Log In').click()
@@ -172,6 +172,7 @@ def complete_worthave():
         page3.get_by_role("combobox").nth(1).select_option("137")
     page3.get_by_role("textbox").nth(1).fill(incidentDesc)
     page3.get_by_role("textbox").nth(2).fill(reason)
+    page3.get_by_role("combobox").nth(2).select_option("163")
     page3.get_by_role("checkbox").check()
     page3.get_by_role("button", name="Submit").click()
     page3.get_by_text("Success Your claim for serial").click()
