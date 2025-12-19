@@ -52,9 +52,8 @@ def complete_ic():
     page.frame_locator("iframe[title=\"workspace\"]").frame_locator("iframe[name=\"frameWorkspace\"]").frame_locator("iframe[name=\"frameWorkspaceWrapper\"]").frame_locator("iframe[name=\"frameWorkspaceDetail\"]").get_by_role("textbox", name="Student Password").click()
     #get user info
     passw = page.frame_locator("iframe[title=\"workspace\"]").frame_locator("iframe[name=\"frameWorkspace\"]").frame_locator("iframe[name=\"frameWorkspaceWrapper\"]").frame_locator("iframe[name=\"frameWorkspaceDetail\"]").get_by_role("textbox", name="Student Password").input_value()
-    fullName = page.query_selector('#main-content > ic-title-bar-container > ic-title-bar > div > div:nth-child(2) > div:nth-child(2) > ic-title-bar-selected-context-item > span').inner_text()
-    #studentNum = page.query_selector("#main-content > ic-title-bar-container > ic-title-bar > div > div.flex.flex-col.w-full.ng-tns-c3707218343-4 > div:nth-child(2) > ic-title-bar-selected-context-item > ul > li:nth-child(1)").inner_text()
-    grade = page.query_selector("#main-content > ic-title-bar-container > ic-title-bar > div > div:nth-child(2) > div:nth-child(2) > ic-title-bar-selected-context-item > ul > li:nth-child(2)").inner_text()
+    fullName = page.query_selector('#main-content > ic-title-bar-container > ic-title-bar > div > div > div:nth-child(2) > div:nth-child(2) > ic-title-bar-selected-context-item > span').inner_text()
+    grade = page.query_selector("#main-content > ic-title-bar-container > ic-title-bar > div > div > div:nth-child(2) > div:nth-child(2) > ic-title-bar-selected-context-item > ul > li:nth-child(2)").inner_text()
     grade = grade[7:]
     #trim off nicknames
     fullName = fullName.rstrip()
@@ -175,7 +174,7 @@ def complete_worthave():
     page3.get_by_role("combobox").nth(2).select_option("163")
     page3.get_by_role("checkbox").check()
     page3.get_by_role("button", name="Submit").click()
-    page3.get_by_text("Success Your claim for serial").click()
+    page3.get_by_text("Success Your claim for serial").click(timeout=180000)
 
 
 user_credentials = get_credentials()
