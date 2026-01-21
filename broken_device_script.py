@@ -82,8 +82,12 @@ def complete_destiny():
     page1.locator('#portal-spinner circle').nth(1).wait_for(state='hidden')
     page1.click("#app-switch-button")
     page1.get_by_text("Back Office").click()
-    page1.get_by_role("button", name="Circulation Circulation").click(timeout=180000)
-    page1.get_by_role("button", name="Check In Items", exact=True).click()
+    page1.get_by_text("Circulation", exact=True).click(timeout=180000)
+    try:
+        page1.get_by_role("button", name="Check In Items", exact=True).click(timeout=10000)
+    except:
+        page1.get_by_text("Circulation", exact=True).click()
+        page1.get_by_role("button", name="Check In Items", exact=True).click(timeout=10000)
     page1.locator('[id="Library Manager"]').content_frame.locator("input[name='barcode']").click()
     page1.locator('[id="Library Manager"]').content_frame.locator("input[name='barcode']").fill(serialNumber)
     page1.locator('[id="Library Manager"]').content_frame.get_by_role("button", name="Go!").click()
